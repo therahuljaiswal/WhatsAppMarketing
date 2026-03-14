@@ -22,3 +22,11 @@ Route::prefix('webhook/whatsapp')->group(function () {
     // POST route to receive the actual webhook payloads
     Route::post('/', [WhatsAppWebhookController::class, 'handle']);
 });
+
+use App\Http\Controllers\WhatsAppOnboardingController;
+
+// WhatsApp Embedded Signup Onboarding Routes
+Route::middleware('auth:sanctum')->prefix('whatsapp')->group(function () {
+    // Callback route to handle the redirect from Facebook's Embedded Signup popup
+    Route::post('/onboarding/callback', [WhatsAppOnboardingController::class, 'callback']);
+});
